@@ -81,5 +81,5 @@ Une fois la PR approuvée et mergée :
 L’issue Jira passera automatiquement au statut Done.
 La branche sera prête pour suppression.
 
-📞 Contact
+### 📞 Contact
 En cas de question, n'hésitez pas à me contacter directement sur WhatsApp
