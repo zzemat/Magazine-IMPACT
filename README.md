@@ -82,4 +82,4 @@ L’issue Jira passera automatiquement au statut Done.
 La branche sera prête pour suppression.
 
 ### 📞 Contact
-En cas de question, n'hésitez pas à me contacter directement sur WhatsApp
+En cas de question, n'hésitez pas à me contacter directement sur WhatsApp.
