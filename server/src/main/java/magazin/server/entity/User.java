@@ -3,6 +3,9 @@ package magazin.server.entity;
 import lombok.Data;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -13,7 +16,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Email
+    @NotBlank
     private String email;
+
+    @NotBlank
+    @Size(min = 8)
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)

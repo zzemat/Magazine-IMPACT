@@ -6,44 +6,35 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
+
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/follows")
+@RequestMapping("/v1/api/follows")
 public class FollowController {
 
     @Autowired
     private FollowService followService;
 
-    @GetMapping
-    public List<Follow> getAllFollows() {
-        return followService.findAll();
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Follow> getFollowById(@PathVariable Long id) {
-        return followService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
-
     @PostMapping
-    public Follow createFollow(@RequestBody Follow follow) {
-        return followService.save(follow);
+    public Follow createFollow(@Valid @RequestBody Follow follow) {
+        return followService.createFollow(follow);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Follow> updateFollow(@PathVariable Long id, @RequestBody Follow followDetails) {
-        return followService.update(id, followDetails)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    @DeleteMapping("/{userSrcId}/{userTrgId}")
+    public ResponseEntity<Void> deleteFollow(@PathVariable Long userSrcId, @PathVariable Long userTrgId) {
+        followService.deleteFollow(userSrcId, userTrgId);
+        return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteFollow(@PathVariable Long id) {
-        if (followService.delete(id)) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
+    @GetMapping("/followers/{userId}")
+    public List<Follow> getFollowers(@PathVariable Long userId) {
+        return followService.getFollowers(userId);
+    }
+
+    @GetMapping("/following/{userId}")
+    public List<Follow> getFollowing(@PathVariable Long userId) {
+        return followService.getFollowing(userId);
     }
 }

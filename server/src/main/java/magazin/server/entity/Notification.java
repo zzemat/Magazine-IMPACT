@@ -3,6 +3,8 @@ package magazin.server.entity;
 import lombok.Data;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,19 +16,25 @@ public class Notification {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotNull
     @Column(name = "profile_id", nullable = false)
     private Long profileId;
 
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "type", nullable = false)
     private NotificationType type;
 
+    @NotNull
     @Column(name = "reference_id", nullable = false)
     private Long referenceId;
 
+    @NotNull
     @Column(name = "is_read", nullable = false)
     private Boolean isRead;
 
+    @NotNull
+    @PastOrPresent
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 

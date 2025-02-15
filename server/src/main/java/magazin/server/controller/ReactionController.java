@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
+
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/reactions")
+@RequestMapping("/v1/api/reactions")
 public class ReactionController {
 
     @Autowired
@@ -17,33 +19,35 @@ public class ReactionController {
 
     @GetMapping
     public List<Reaction> getAllReactions() {
-        return reactionService.findAll();
+        return reactionService.getAllReactions();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Reaction> getReactionById(@PathVariable Long id) {
-        return reactionService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Reaction reaction = reactionService.getReactionById(id);
+        if (reaction != null) {
+            return ResponseEntity.ok(reaction);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping
-    public Reaction createReaction(@RequestBody Reaction reaction) {
-        return reactionService.save(reaction);
+    public Reaction createReaction(@Valid @RequestBody Reaction reaction) {
+        return reactionService.createReaction(reaction);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Reaction> updateReaction(@PathVariable Long id, @RequestBody Reaction reaction) {
-        return reactionService.update(id, reaction)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Reaction> updateReaction(@PathVariable Long id,@Valid @RequestBody Reaction reaction) {
+        Reaction updatedReaction = reactionService.updateReaction(id, reaction);
+        if (updatedReaction != null) {
+            return ResponseEntity.ok(updatedReaction);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteReaction(@PathVariable Long id) {
-        if (reactionService.delete(id)) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
+        reactionService.deleteReaction(id);
+        return ResponseEntity.noContent().build();
     }
 }

@@ -1,8 +1,8 @@
-package com.example.serviceImpl;
+package magazin.server.service.serviceImpl;
 
-import com.example.entity.Follow;
-import com.example.repository.FollowRepository;
-import com.example.service.FollowService;
+import magazin.server.entity.Follow;
+import magazin.server.repository.FollowRepository;
+import magazin.server.service.FollowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +10,9 @@ import java.util.List;
 
 @Service
 public class FollowServiceImpl implements FollowService {
-
     @Autowired
-    private FollowRepository followRepository;
+        private FollowRepository followRepository;
+        
 
     @Override
     public Follow createFollow(Follow follow) {
@@ -25,12 +25,12 @@ public class FollowServiceImpl implements FollowService {
     }
 
     @Override
-    public List<Follow> getFollowsByUserSrcId(Long userSrcId) {
+    public List<Follow> getFollowing(Long userSrcId) {
         return followRepository.findByUserSrcId(userSrcId);
     }
 
     @Override
-    public List<Follow> getFollowsByUserTrgId(Long userTrgId) {
+    public List<Follow> getFollowers(Long userTrgId) {
         return followRepository.findByUserTrgId(userTrgId);
     }
 }

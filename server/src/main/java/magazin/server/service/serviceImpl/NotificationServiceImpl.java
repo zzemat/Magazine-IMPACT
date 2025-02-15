@@ -1,8 +1,8 @@
-package com.example.serviceImpl;
+package magazin.server.service.serviceImpl;
 
-import com.example.entity.Notification;
-import com.example.repository.NotificationRepository;
-import com.example.service.NotificationService;
+import magazin.server.entity.Notification;
+import magazin.server.repository.NotificationRepository;
+import magazin.server.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +14,22 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Autowired
     private NotificationRepository notificationRepository;
+
+
+    @Override
+    public Notification update(Long id, Notification notification) {
+        Notification existingNotification = notificationRepository.findById(id).orElseThrow(() -> new RuntimeException("Notification not found"));
+        //use mappers here!!!!!!!! author: idir.
+        existingNotification.setProfileId(notification.getProfileId());
+        existingNotification.setType(notification.getType());
+        existingNotification.setReferenceId(notification.getReferenceId());
+        existingNotification.setIsRead(notification.getIsRead());
+        existingNotification.setCreatedAt(notification.getCreatedAt());
+
+        return notificationRepository.save(existingNotification);
+    }
+
+    
 
     @Override
     public List<Notification> findAll() {
@@ -31,8 +47,13 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public void deleteById(Long id) {
-        notificationRepository.deleteById(id);
+    public boolean deleteById(Long id) {
+        if (notificationRepository.existsById(id)) {
+            notificationRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

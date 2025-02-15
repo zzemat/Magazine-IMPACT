@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/profiles")
+@RequestMapping("/v1/api/profiles")
 public class ProfileController {
 
     @Autowired
@@ -17,33 +18,37 @@ public class ProfileController {
 
     @GetMapping
     public List<Profile> getAllProfiles() {
-        return profileService.findAll();
+        return profileService.getAllProfiles();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Profile> getProfileById(@PathVariable Long id) {
-        return profileService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Profile profile = profileService.getProfileById(id);
+        if (profile != null) {
+            return ResponseEntity.ok(profile);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
-    public Profile createProfile(@RequestBody Profile profile) {
-        return profileService.save(profile);
+    public Profile createProfile(@Valid @RequestBody Profile profile) {
+        return profileService.createProfile(profile);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Profile> updateProfile(@PathVariable Long id, @RequestBody Profile profileDetails) {
-        return profileService.update(id, profileDetails)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Profile> updateProfile(@PathVariable Long id, @Valid @RequestBody Profile profileDetails) {
+        Profile updatedProfile = profileService.updateProfile(id, profileDetails);
+        if (updatedProfile != null) {
+            return ResponseEntity.ok(updatedProfile);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProfile(@PathVariable Long id) {
-        if (profileService.delete(id)) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
+        profileService.deleteProfile(id);
+        return ResponseEntity.noContent().build();
     }
 }

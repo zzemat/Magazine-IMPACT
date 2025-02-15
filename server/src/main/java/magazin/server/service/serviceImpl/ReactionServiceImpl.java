@@ -1,8 +1,8 @@
-package com.example.serviceImpl;
+package magazin.server.service.serviceImpl;
 
-import com.example.entity.Reaction;
-import com.example.repository.ReactionRepository;
-import com.example.service.ReactionService;
+import magazin.server.entity.Reaction;
+import magazin.server.repository.ReactionRepository;
+import magazin.server.service.ReactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,22 +16,32 @@ public class ReactionServiceImpl implements ReactionService {
     private ReactionRepository reactionRepository;
 
     @Override
-    public List<Reaction> findAll() {
-        return reactionRepository.findAll();
-    }
-
-    @Override
-    public Optional<Reaction> findById(Long id) {
-        return reactionRepository.findById(id);
-    }
-
-    @Override
-    public Reaction save(Reaction reaction) {
+    public Reaction createReaction(Reaction reaction) {
         return reactionRepository.save(reaction);
     }
 
     @Override
-    public void deleteById(Long id) {
+    public Reaction getReactionById(Long id) {
+        Optional<Reaction> reaction = reactionRepository.findById(id);
+        return reaction.orElse(null); // or throw an exception if preferred
+    }
+
+    @Override
+    public List<Reaction> getAllReactions() {
+        return reactionRepository.findAll();
+    }
+
+    @Override
+    public Reaction updateReaction(Long id, Reaction reaction) {
+        if (reactionRepository.existsById(id)) {
+            reaction.setId(id);
+            return reactionRepository.save(reaction);
+        }
+        return null; // or throw an exception if preferred
+    }
+
+    @Override
+    public void deleteReaction(Long id) {
         reactionRepository.deleteById(id);
     }
 }

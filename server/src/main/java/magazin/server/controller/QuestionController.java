@@ -6,10 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/questions")
+@RequestMapping("/v1/api/questions")
 public class QuestionController {
 
     @Autowired
@@ -17,33 +18,35 @@ public class QuestionController {
 
     @GetMapping
     public List<Question> getAllQuestions() {
-        return questionService.findAll();
+        return questionService.getAllQuestions();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Question> getQuestionById(@PathVariable Long id) {
-        return questionService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Question question = questionService.getQuestionById(id);
+        if (question != null) {
+            return ResponseEntity.ok(question);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping
-    public Question createQuestion(@RequestBody Question question) {
-        return questionService.save(question);
+    public Question createQuestion(@Valid @RequestBody Question question) {
+        return questionService.createQuestion(question);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Question> updateQuestion(@PathVariable Long id, @RequestBody Question question) {
-        return questionService.update(id, question)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Question> updateQuestion(@PathVariable Long id, @Valid @RequestBody Question question) {
+        Question updatedQuestion = questionService.updateQuestion(id, question);
+        if (updatedQuestion != null) {
+            return ResponseEntity.ok(updatedQuestion);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteQuestion(@PathVariable Long id) {
-        if (questionService.delete(id)) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
+        questionService.deleteQuestion(id);
+        return ResponseEntity.noContent().build();
     }
 }

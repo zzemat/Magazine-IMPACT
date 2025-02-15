@@ -6,10 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
+
 import java.util.List;
 
 @RestController
-@RequestMapping("/comments")
+@RequestMapping("/v1/api/comments")
 public class CommentController {
 
     @Autowired
@@ -17,33 +19,37 @@ public class CommentController {
 
     @GetMapping
     public List<Comment> getAllComments() {
-        return commentService.findAll();
+        return commentService.getAllComments();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Comment> getCommentById(@PathVariable Long id) {
-        return commentService.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+        Comment comment = commentService.getCommentById(id);
+        if (comment != null) {
+            return ResponseEntity.ok(comment);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
-    public Comment createComment(@RequestBody Comment comment) {
-        return commentService.save(comment);
+    public Comment createComment(@Valid @RequestBody Comment comment) {
+        return commentService.createComment(comment);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Comment> updateComment(@PathVariable Long id, @RequestBody Comment comment) {
-        return commentService.update(id, comment)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Comment> updateComment(@PathVariable Long id,@Valid @RequestBody Comment comment) {
+        Comment updatedComment = commentService.updateComment(id, comment);
+        if (updatedComment != null) {
+            return ResponseEntity.ok(updatedComment);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteComment(@PathVariable Long id) {
-        if (commentService.delete(id)) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
+        commentService.deleteComment(id);
+        return ResponseEntity.noContent().build();
     }
 }
