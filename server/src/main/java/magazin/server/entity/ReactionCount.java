@@ -5,8 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-
-// if we decide to add more types of reactions !!!!!!!!!!!! author: @Idir0u
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "reaction_counts")
@@ -22,6 +21,7 @@ public class ReactionCount {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "reaction_id", nullable = false)
+    @JsonIgnore
     private Reaction reaction;
 
     @NotNull

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "follows")
@@ -15,6 +16,7 @@ import jakarta.validation.constraints.NotNull;
 public class Follow {
 
     @EmbeddedId
+    @JsonIgnore
     private FollowId id;
 
     @Embeddable

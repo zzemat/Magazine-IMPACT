@@ -1,5 +1,6 @@
 package magazin.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import jakarta.persistence.*;
@@ -19,16 +20,19 @@ public class Profile {
     private Long id;
 
     @NotNull
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Size(max = 255)
     @Column(name = "profile_picture")
     private String profilePicture;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<SavedPost> savedPosts;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "follows",
@@ -37,6 +41,7 @@ public class Profile {
     )
     private Set<Profile> followers;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "follows",
@@ -45,18 +50,23 @@ public class Profile {
     )
     private Set<Profile> following;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Post> posts;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Comment> comments;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Reaction> reactions;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Question> questions;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Answer> answers;
 

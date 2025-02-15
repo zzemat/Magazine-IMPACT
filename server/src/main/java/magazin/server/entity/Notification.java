@@ -1,5 +1,6 @@
 package magazin.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import jakarta.persistence.*;
@@ -19,6 +20,7 @@ public class Notification {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "profile_id", nullable = false)
+    @JsonIgnore
     private Profile profile;
 
     @NotNull
