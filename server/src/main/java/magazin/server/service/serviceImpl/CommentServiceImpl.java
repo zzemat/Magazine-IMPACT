@@ -38,9 +38,9 @@ public class CommentServiceImpl implements CommentService {
             Comment existingComment = optionalComment.get();
             // use mappers!!!!!!!!!!! 
             existingComment.setText(comment.getText());
-            existingComment.setPostId(comment.getPostId());
             existingComment.setPushedAt(comment.getPushedAt());
-            existingComment.setUserId(comment.getUserId());
+            existingComment.setPost(comment.getPost());
+            existingComment.setProfile(comment.getProfile());
             return commentRepository.save(existingComment);
         }
         return null;

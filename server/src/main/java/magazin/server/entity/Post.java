@@ -22,8 +22,9 @@ public class Post {
     private Long id;
 
     @NotNull
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "profile_id", nullable = false)
+    private Profile profile;
 
     @Column(name = "banner_img")
     private String bannerImg;
@@ -37,15 +38,20 @@ public class Post {
     @Column(name = "text", nullable = false)
     private String text;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.LAZY)
     @Column(name = "tags")
     private List<String> tags;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Comment> comments;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Reaction> reactions;
+
+    @Transient
+    public int getReactionCount() {
+        return reactions != null ? reactions.size() : 0;
+    }
 
     @NotNull
     @Column(name = "published", nullable = false)
@@ -53,4 +59,5 @@ public class Post {
 
     @Column(name = "published_at")
     private LocalDateTime publishedAt;
+
 }

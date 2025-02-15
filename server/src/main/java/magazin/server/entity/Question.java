@@ -22,18 +22,21 @@ public class Question {
     private Long id;
 
     @NotNull
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "profile_id", nullable = false)
+    private Profile profile;
 
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "title", nullable = false)
     private String title;
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    /*
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Reaction> reactions;
+    */
 
-    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Answer> answers;
 
     @Column(name = "published_at")

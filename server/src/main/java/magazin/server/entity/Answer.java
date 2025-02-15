@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.List;
+//import java.util.List;
 
 @Entity
 @Table(name = "answers")
@@ -23,25 +23,28 @@ public class Answer {
     private Long id;
 
     @NotNull
-    @Column(name = "user_id", nullable = false)
-    private Long userId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @NotNull
-    @Column(name = "question_id", nullable = false)
-    private Long questionId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "question_id", nullable = false)
+    private Question question;
 
     @NotBlank
     @Column(name = "text", nullable = false)
     private String text;
 
+    /* 
     @ManyToMany
     @JoinTable(
         name = "answer_reactions",
         joinColumns = @JoinColumn(name = "answer_id"),
         inverseJoinColumns = @JoinColumn(name = "reaction_id")
-    )
+)
     private List<Reaction> reactions;
-
+    */
     @NotNull
     @Column(name = "published_at", nullable = false)
     private LocalDateTime publishedAt;

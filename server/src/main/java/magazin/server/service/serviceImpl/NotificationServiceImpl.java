@@ -20,7 +20,7 @@ public class NotificationServiceImpl implements NotificationService {
     public Notification update(Long id, Notification notification) {
         Notification existingNotification = notificationRepository.findById(id).orElseThrow(() -> new RuntimeException("Notification not found"));
         //use mappers here!!!!!!!! author: idir.
-        existingNotification.setProfileId(notification.getProfileId());
+        existingNotification.setProfile(notification.getProfile());
         existingNotification.setType(notification.getType());
         existingNotification.setReferenceId(notification.getReferenceId());
         existingNotification.setIsRead(notification.getIsRead());

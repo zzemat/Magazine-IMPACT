@@ -17,8 +17,9 @@ public class Notification {
     private Long id;
 
     @NotNull
-    @Column(name = "profile_id", nullable = false)
-    private Long profileId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "profile_id", nullable = false)
+    private Profile profile;
 
     @NotNull
     @Enumerated(EnumType.STRING)

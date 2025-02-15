@@ -34,21 +34,11 @@ public class PostServiceImpl implements PostService {
     @Override
     public Post updatePost(Long id, Post post) {
         Optional<Post> existingPost = postRepository.findById(id);
+        //use mappers to update the existingPost !!!!!!!!!!!!! author: @Idir0u
         if (existingPost.isPresent()) {
-            Post updatedPost = existingPost.get();
-            // use model mapper to map post to updatedPost. author : @Idir0u
-            updatedPost.setTitle(post.getTitle());
-            updatedPost.setText(post.getText());
-            updatedPost.setTags(post.getTags());
-            updatedPost.setPublished(post.getPublished());
-            updatedPost.setPublishedAt(post.getPublishedAt());
-            updatedPost.setBannerImg(post.getBannerImg());
-            updatedPost.setUserId(post.getUserId());
-            updatedPost.setComments(post.getComments());
-            updatedPost.setReactions(post.getReactions());
-
-            // Update other fields as necessary
-            return postRepository.save(updatedPost);
+            // Set the ID to the updatedPost and save it
+            post.setId(id);
+            return postRepository.save(post);
         } else {
             return null;
         }

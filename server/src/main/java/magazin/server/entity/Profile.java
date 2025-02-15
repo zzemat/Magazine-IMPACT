@@ -3,7 +3,6 @@ package magazin.server.entity;
 import lombok.Data;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
@@ -27,12 +26,10 @@ public class Profile {
     @Column(name = "profile_picture")
     private String profilePicture;
 
-    @ElementCollection
-    @NotEmpty
-    @Column(name = "saved_posts")
-    private List<Long> savedPosts;
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<SavedPost> savedPosts;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
         name = "follows",
         joinColumns = @JoinColumn(name = "user_src_id"),
@@ -40,33 +37,28 @@ public class Profile {
     )
     private Set<Profile> followers;
 
-    @ManyToMany(mappedBy = "followers")
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "follows",
+        joinColumns = @JoinColumn(name = "user_trg_id"),
+        inverseJoinColumns = @JoinColumn(name = "user_src_id")
+    )
     private Set<Profile> following;
 
-    @ElementCollection
-    @NotEmpty
-    @Column(name = "posts")
-    private List<Long> posts;
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Post> posts;
 
-    @ElementCollection
-    @NotEmpty
-    @Column(name = "comments")
-    private List<Long> comments;
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Comment> comments;
 
-    @ElementCollection
-    @NotEmpty
-    @Column(name = "reactions")
-    private List<Long> reactions;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Reaction> reactions;
 
-    @ElementCollection
-    @NotEmpty
-    @Column(name = "questions")
-    private List<Long> questions;
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Question> questions;
 
-    @ElementCollection
-    @NotEmpty
-    @Column(name = "answers")
-    private List<Long> answers;
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Answer> answers;
 
     @NotNull
     @Column(name = "created_at", nullable = false)
