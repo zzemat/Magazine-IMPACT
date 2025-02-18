@@ -59,7 +59,7 @@ public class Profile {
     private List<Comment> comments;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Reaction> reactions;
 
     @JsonIgnore

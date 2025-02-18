@@ -36,8 +36,9 @@ public class Post {
     @Column(name = "title", nullable = false)
     private String title;
 
+    @Lob
     @NotBlank
-    @Column(name = "text", nullable = false)
+    @Column(name = "text", nullable = false, columnDefinition = "TEXT")
     private String text;
 
     @ElementCollection(fetch = FetchType.LAZY)

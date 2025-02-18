@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
 
@@ -32,8 +31,7 @@ public class Comment {
     private Post post;
 
     @NotNull
-    @Size(min = 1, max = 500)
-    @Column(name = "text", nullable = false)
+    @Column(name = "text", nullable = false, columnDefinition = "TEXT")
     private String text;
 
     /*

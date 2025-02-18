@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -28,9 +27,11 @@ public class Question {
     private Profile profile;
 
     @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "title", nullable = false)
-    private String title;
+    @Lob
+    @Column(name = "text", nullable = false, columnDefinition = "TEXT")
+    private String text;
+
+    
 
     /*
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

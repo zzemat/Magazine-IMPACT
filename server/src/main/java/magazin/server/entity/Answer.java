@@ -24,9 +24,9 @@ public class Answer {
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "profile_id", nullable = false)
     @JsonIgnore
-    private User user;
+    private Profile profile;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
@@ -34,8 +34,9 @@ public class Answer {
     @JsonIgnore
     private Question question;
 
+    @Lob
     @NotBlank
-    @Column(name = "text", nullable = false)
+    @Column(name = "text", nullable = false, columnDefinition = "TEXT")
     private String text;
 
     @NotNull
