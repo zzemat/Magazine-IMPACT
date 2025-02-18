@@ -10,21 +10,24 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Table(name = "signials")
+@Table(name = "signals")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Signial {
+public class Signal {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank
-    private String refid;
+    @Column(name = "ref_id")
+    private String refId;
 
     @NotNull
+    @Column(name = "date")
     private LocalDate date;
 
     @NotBlank
+    @Column(name = "contenue", columnDefinition = "TEXT")
     private String contenue;
 
     @ManyToOne
