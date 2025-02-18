@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import jakarta.validation.Valid;
+
 import java.util.List;
 
 @RestController
@@ -15,7 +17,7 @@ public class SavedPostController {
     @Autowired
     private SavedPostService savedPostService;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<SavedPost> getAllSavedPosts() {
         return savedPostService.getAllSavedPosts();
     }
@@ -30,13 +32,14 @@ public class SavedPostController {
         }
     }
 
-    @PostMapping
-    public SavedPost createSavedPost(@RequestBody SavedPost savedPost) {
-        return savedPostService.createSavedPost(savedPost);
+    @PostMapping("/create")
+    public ResponseEntity<SavedPost> createSavedPost(@Valid @RequestBody SavedPost savedPost) {
+        SavedPost createdSavedPost = savedPostService.createSavedPost(savedPost);
+        return ResponseEntity.ok(createdSavedPost);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<SavedPost> updateSavedPost(@PathVariable Long id, @RequestBody SavedPost savedPost) {
+    public ResponseEntity<SavedPost> updateSavedPost(@PathVariable Long id,@Valid @RequestBody SavedPost savedPost) {
         SavedPost updatedSavedPost = savedPostService.updateSavedPost(id, savedPost);
         if (updatedSavedPost != null) {
             return ResponseEntity.ok(updatedSavedPost);

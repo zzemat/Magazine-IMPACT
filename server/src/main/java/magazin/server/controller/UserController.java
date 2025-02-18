@@ -40,6 +40,7 @@ public class UserController {
     @PostMapping("/create")
     public ResponseEntity<User> createUser(@Valid @RequestBody User user) {
         User createdUser = userService.createUser(user);
+        userService.createProfileForUser(createdUser.getId());
         return ResponseEntity.ok(createdUser);
     }
 

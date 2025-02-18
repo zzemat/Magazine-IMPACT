@@ -16,7 +16,7 @@ public class NotificationController {
     @Autowired
     private NotificationService notificationService;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Notification> getAllNotifications() {
         return notificationService.findAll();
     }
@@ -28,9 +28,10 @@ public class NotificationController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public Notification createNotification(@Valid @RequestBody Notification notification) {
-        return notificationService.save(notification);
+    @PostMapping("/create")
+    public ResponseEntity<Notification> createNotification(@Valid @RequestBody Notification notification) {
+        Notification createdNotification = notificationService.save(notification);
+        return ResponseEntity.ok(createdNotification);
     }
 
     @PutMapping("/{id}")

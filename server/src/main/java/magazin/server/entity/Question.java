@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @NoArgsConstructor
@@ -27,9 +28,8 @@ public class Question {
     private Profile profile;
 
     @NotNull
-    @Lob
-    @Column(name = "text", nullable = false, columnDefinition = "TEXT")
-    private String text;
+    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
+    private String content;
 
     
 
@@ -43,5 +43,7 @@ public class Question {
     private List<Answer> answers;
 
     @Column(name = "published_at")
+    @NotNull
+    @CreationTimestamp
     private LocalDateTime publishedAt;
 }

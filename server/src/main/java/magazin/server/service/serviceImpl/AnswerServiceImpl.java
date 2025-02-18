@@ -36,7 +36,7 @@ public class AnswerServiceImpl implements AnswerService {
         Optional<Answer> optionalAnswer = answerRepository.findById(id);
         if (optionalAnswer.isPresent()) {
             Answer existingAnswer = optionalAnswer.get();
-            existingAnswer.setText(answer.getText());
+            existingAnswer.setContent(answer.getContent());
             // Update other fields as necessary
             return answerRepository.save(existingAnswer);
         }

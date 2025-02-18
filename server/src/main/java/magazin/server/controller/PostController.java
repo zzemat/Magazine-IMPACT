@@ -35,7 +35,7 @@ public class PostController {
     @PostMapping("/create")
     public ResponseEntity<Post> createPost(@Valid @RequestBody Post post) {
         Post createdPost = postService.createPost(post);
-        return ResponseEntity.status(201).body(createdPost);
+        return ResponseEntity.ok(createdPost);
     }
 
     @PutMapping("/{id}")

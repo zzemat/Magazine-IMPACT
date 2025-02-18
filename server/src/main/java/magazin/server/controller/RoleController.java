@@ -16,7 +16,7 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Role> getAllRoles() {
         return roleService.getAllRoles();
     }
@@ -31,9 +31,10 @@ public class RoleController {
         }
     }
 
-    @PostMapping
-    public Role createRole(@Valid @RequestBody Role role) {
-        return roleService.createRole(role);
+    @PostMapping("/create")
+    public ResponseEntity<Role> createRole(@Valid @RequestBody Role role) {
+        Role createdRole = roleService.createRole(role);
+        return ResponseEntity.ok(createdRole);
     }
 
     @PutMapping("/{id}")

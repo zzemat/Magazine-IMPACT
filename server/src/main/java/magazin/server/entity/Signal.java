@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Data
@@ -33,4 +34,9 @@ public class Signal {
     @ManyToOne
     @JoinColumn(name = "profile_id", nullable = false)
     private Profile profile;
+
+    @NotNull
+    @Column(name = "pushed_at")
+    @CreationTimestamp
+    private LocalDate pushedAt;
 }

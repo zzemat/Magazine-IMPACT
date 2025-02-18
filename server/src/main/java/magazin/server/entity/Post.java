@@ -10,6 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "posts")
@@ -36,10 +37,9 @@ public class Post {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @Lob
     @NotBlank
-    @Column(name = "text", nullable = false, columnDefinition = "TEXT")
-    private String text;
+    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
+    private String content;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @Column(name = "tags")
@@ -63,6 +63,7 @@ public class Post {
     private Boolean published;
 
     @Column(name = "published_at")
+    @CreationTimestamp
     private LocalDateTime publishedAt;
 
 }

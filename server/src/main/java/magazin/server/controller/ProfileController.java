@@ -16,7 +16,7 @@ public class ProfileController {
     @Autowired
     private ProfileService profileService;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Profile> getAllProfiles() {
         return profileService.getAllProfiles();
     }
@@ -31,9 +31,10 @@ public class ProfileController {
         }
     }
 
-    @PostMapping
-    public Profile createProfile(@Valid @RequestBody Profile profile) {
-        return profileService.createProfile(profile);
+    @PostMapping("/create")
+    public ResponseEntity<Profile> createProfile(@Valid @RequestBody Profile profile) {
+        Profile createdProfile = profileService.createProfile(profile);
+        return ResponseEntity.ok(createdProfile);
     }
 
     @PutMapping("/{id}")

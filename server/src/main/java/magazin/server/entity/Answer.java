@@ -9,6 +9,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "answers")
@@ -34,12 +35,12 @@ public class Answer {
     @JsonIgnore
     private Question question;
 
-    @Lob
     @NotBlank
-    @Column(name = "text", nullable = false, columnDefinition = "TEXT")
-    private String text;
+    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
+    private String content;
 
     @NotNull
-    @Column(name = "published_at", nullable = false)
+    @Column(name = "published_at", nullable = false, updatable = false)
+    @CreationTimestamp
     private LocalDateTime publishedAt;
 }

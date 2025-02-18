@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "comments")
@@ -31,8 +32,8 @@ public class Comment {
     private Post post;
 
     @NotNull
-    @Column(name = "text", nullable = false, columnDefinition = "TEXT")
-    private String text;
+    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
+    private String content;
 
     /*
      @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
@@ -41,5 +42,6 @@ public class Comment {
 
     @NotNull
     @Column(name = "pushed_at", nullable = false)
+    @CreationTimestamp
     private LocalDateTime pushedAt;
 }

@@ -17,7 +17,7 @@ public class CommentController {
     @Autowired
     private CommentService commentService;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Comment> getAllComments() {
         return commentService.getAllComments();
     }
@@ -32,13 +32,14 @@ public class CommentController {
         }
     }
 
-    @PostMapping
-    public Comment createComment(@Valid @RequestBody Comment comment) {
-        return commentService.createComment(comment);
+    @PostMapping("/create")
+    public ResponseEntity<Comment> createComment(@Valid @RequestBody Comment comment) {
+        Comment createdComment = commentService.createComment(comment);
+        return ResponseEntity.ok(createdComment);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Comment> updateComment(@PathVariable Long id,@Valid @RequestBody Comment comment) {
+    public ResponseEntity<Comment> updateComment(@PathVariable Long id, @Valid @RequestBody Comment comment) {
         Comment updatedComment = commentService.updateComment(id, comment);
         if (updatedComment != null) {
             return ResponseEntity.ok(updatedComment);
