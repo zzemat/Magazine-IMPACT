@@ -10,6 +10,7 @@ import java.util.Set;
 
 @Entity
 @Data
+@Table(name = "\"user\"")
 public class User {
     
     @Id
@@ -23,6 +24,11 @@ public class User {
     @NotBlank
     @Size(min = 8)
     private String password;
+
+    private String username;
+
+
+    private boolean enabled = true;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

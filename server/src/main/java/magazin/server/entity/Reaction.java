@@ -33,4 +33,8 @@ public class Reaction {
     @NotNull
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Profile user;  // Add this field
 }
