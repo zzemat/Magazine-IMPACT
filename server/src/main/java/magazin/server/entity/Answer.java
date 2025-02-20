@@ -1,10 +1,8 @@
 package magazin.server.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+
 import lombok.*;
-import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,11 +10,11 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "answers")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Table(name = "answers")
+
 public class Answer {
 
     @Id
@@ -44,11 +42,5 @@ public class Answer {
     @CreationTimestamp
     private LocalDateTime publishedAt;
 
-    // Ajoute ce champ manquant
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "profile_id", nullable = false)
-    @JsonIgnore
-    private Profile profile; // Ce champ manquait !
 
 }

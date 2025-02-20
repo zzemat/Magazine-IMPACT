@@ -1,7 +1,7 @@
 package magazin.server.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import lombok.*;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

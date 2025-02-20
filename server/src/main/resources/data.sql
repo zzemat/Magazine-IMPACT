@@ -1,7 +1,7 @@
 -- Insert Users
-INSERT INTO users (email, password) VALUES ('user1@example.com', 'password1');
-INSERT INTO users (email, password) VALUES ('user2@example.com', 'password2');
-INSERT INTO users (email, password) VALUES ('user3@example.com', 'password3');
+INSERT INTO users (email, password) VALUES ('user1@example.com', '$2a$12$JEc10wkYEskZGIWTW3T2n.fUViq2OIAPSTQUYMPjZ4F2OztK7Iigy');
+INSERT INTO users (email, password) VALUES ('user2@example.com', '$2a$12$JEc10wkYEskZGIWTW3T2n.fUViq2OIAPSTQUYMPjZ4F2OztK7Iigy');
+INSERT INTO users (email, password) VALUES ('user3@example.com', '$2a$12$JEc10wkYEskZGIWTW3T2n.fUViq2OIAPSTQUYMPjZ4F2OztK7Iigy');
 
 -- Insert Profiles
 INSERT INTO profiles (user_id, profile_picture, created_at) VALUES (1, 'profile_pic1.jpg', '2025-02-18T00:00:00');

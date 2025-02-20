@@ -1,6 +1,6 @@
 package magazin.server.entity;
 
-import lombok.Data;
+import lombok.*;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;

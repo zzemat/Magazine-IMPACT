@@ -21,16 +21,16 @@ public class FollowServiceImpl implements FollowService {
 
     @Override
     public void deleteFollow(Long userSrcId, Long userTrgId) {
-        followRepository.deleteByIdUserSrcIdAndIdUserTrgId(userSrcId, userTrgId);
+        followRepository.deleteByUserSrcIdAndUserTrgId(userSrcId, userTrgId);
     }
 
     @Override
     public List<Follow> getFollowing(Long userSrcId) {
-        return followRepository.findByIdUserSrcId(userSrcId);
+        return followRepository.findByUserSrcId(userSrcId);
     }
 
     @Override
     public List<Follow> getFollowers(Long userTrgId) {
-        return followRepository.findByIdUserTrgId(userTrgId);
+        return followRepository.findByUserTrgId(userTrgId);
     }
 }
