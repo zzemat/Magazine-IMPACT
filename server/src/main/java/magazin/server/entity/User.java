@@ -13,6 +13,7 @@ import java.util.Set;
 @Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
+
 public class User {
     
     @Id
@@ -26,6 +27,11 @@ public class User {
     @NotBlank
     @Size(min = 8)
     private String password;
+
+    private String username;
+
+
+    private boolean enabled = true;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
