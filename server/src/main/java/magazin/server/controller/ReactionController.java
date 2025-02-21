@@ -17,7 +17,7 @@ public class ReactionController {
     @Autowired
     private ReactionService reactionService;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Reaction> getAllReactions() {
         return reactionService.getAllReactions();
     }
@@ -31,13 +31,14 @@ public class ReactionController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping
-    public Reaction createReaction(@Valid @RequestBody Reaction reaction) {
-        return reactionService.createReaction(reaction);
+    @PostMapping("/create")
+    public ResponseEntity<Reaction> createReaction(@Valid @RequestBody Reaction reaction) {
+        Reaction createdReaction = reactionService.createReaction(reaction);
+        return ResponseEntity.ok(createdReaction);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Reaction> updateReaction(@PathVariable Long id,@Valid @RequestBody Reaction reaction) {
+    public ResponseEntity<Reaction> updateReaction(@PathVariable Long id, @Valid @RequestBody Reaction reaction) {
         Reaction updatedReaction = reactionService.updateReaction(id, reaction);
         if (updatedReaction != null) {
             return ResponseEntity.ok(updatedReaction);

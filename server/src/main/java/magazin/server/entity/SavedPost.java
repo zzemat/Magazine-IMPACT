@@ -6,9 +6,11 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "saved_posts")
 public class SavedPost {
@@ -31,6 +33,7 @@ public class SavedPost {
 
     @NotNull
     @Column(name = "saved_at", nullable = false)
+    @CreationTimestamp
     private LocalDateTime savedAt;
 
 }

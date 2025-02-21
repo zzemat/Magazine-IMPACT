@@ -16,9 +16,10 @@ public class PostController {
     @Autowired
     private PostService postService;
 
-    @GetMapping
-    public List<Post> getAllPosts() {
-        return postService.getAllPosts();
+    @GetMapping("/all")
+    public ResponseEntity<List<Post>> getAllPosts() {
+        List<Post> posts = postService.getAllPosts();
+        return ResponseEntity.ok(posts);
     }
 
     @GetMapping("/{id}")
@@ -31,9 +32,10 @@ public class PostController {
         }
     }
 
-    @PostMapping
-    public Post createPost(@Valid @RequestBody Post post) {
-        return postService.createPost(post);
+    @PostMapping("/create")
+    public ResponseEntity<Post> createPost(@Valid @RequestBody Post post) {
+        Post createdPost = postService.createPost(post);
+        return ResponseEntity.ok(createdPost);
     }
 
     @PutMapping("/{id}")

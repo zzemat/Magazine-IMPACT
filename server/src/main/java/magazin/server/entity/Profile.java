@@ -9,10 +9,13 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @Entity
 @Table(name = "profiles")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Profile {
 
     @Id
@@ -22,11 +25,12 @@ public class Profile {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private User user;
 
     @Size(max = 255)
     @Column(name = "profile_picture")
-    private String profilePicture;
+    private String profilePicture = "default_image_url";
 
     @JsonIgnore
     @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
@@ -59,7 +63,7 @@ public class Profile {
     private List<Comment> comments;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Reaction> reactions;
 
     @JsonIgnore
@@ -71,7 +75,8 @@ public class Profile {
     private List<Answer> answers;
 
     @NotNull
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
 }

@@ -7,10 +7,13 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
 import java.time.LocalDateTime;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "notifications")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Notification {
     
     @Id
@@ -39,6 +42,7 @@ public class Notification {
     @NotNull
     @PastOrPresent
     @Column(name = "created_at", nullable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
     public enum NotificationType {

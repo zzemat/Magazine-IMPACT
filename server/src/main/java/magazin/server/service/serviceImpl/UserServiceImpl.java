@@ -1,6 +1,8 @@
 package magazin.server.service.serviceImpl;
 
 import magazin.server.entity.User;
+import magazin.server.entity.Profile;
+import magazin.server.repository.ProfileRepository;
 import magazin.server.repository.UserRepository;
 import magazin.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ProfileRepository profileRepository;
 
     @Override
     public User createUser(User user) {
@@ -29,6 +34,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllUsers() {
         return userRepository.findAll();
+    }
+
+    @Override
+    public void createProfileForUser(Long userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+
+            Profile profile = new Profile();
+            profile.setUser(user);
+
+            profileRepository.save(profile);
+        } else {
+            throw new RuntimeException("User not found with id: " + userId);
+        }
     }
 
     @Override

@@ -22,8 +22,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post getPostById(Long id) {
-        Optional<Post> post = postRepository.findById(id);
-        return post.orElse(null);
+        return postRepository.findById(id).orElse(null);
     }
 
     @Override

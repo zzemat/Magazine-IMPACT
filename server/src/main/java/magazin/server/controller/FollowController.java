@@ -17,9 +17,10 @@ public class FollowController {
     @Autowired
     private FollowService followService;
 
-    @PostMapping
-    public Follow createFollow(@Valid @RequestBody Follow follow) {
-        return followService.createFollow(follow);
+    @PostMapping("/create")
+    public ResponseEntity<Follow> createFollow(@Valid @RequestBody Follow follow) {
+        Follow createdFollow = followService.createFollow(follow);
+        return ResponseEntity.ok(createdFollow);
     }
 
     @DeleteMapping("/{userSrcId}/{userTrgId}")

@@ -6,9 +6,9 @@ import lombok.AllArgsConstructor;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.time.LocalDateTime;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
 @Table(name = "comments")
@@ -32,9 +32,8 @@ public class Comment {
     private Post post;
 
     @NotNull
-    @Size(min = 1, max = 500)
-    @Column(name = "text", nullable = false)
-    private String text;
+    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
+    private String content;
 
     /*
      @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
@@ -43,5 +42,6 @@ public class Comment {
 
     @NotNull
     @Column(name = "pushed_at", nullable = false)
+    @CreationTimestamp
     private LocalDateTime pushedAt;
 }

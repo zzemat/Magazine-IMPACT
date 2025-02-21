@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "follows")
@@ -15,21 +14,24 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @NoArgsConstructor
 public class Follow {
 
-    @EmbeddedId
-    @JsonIgnore
-    private FollowId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+ 
+    @NotNull
+    @Column(name = "user_src_id")
+    private Long userSrcId;
 
-    @Embeddable
-    @Data
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class FollowId implements java.io.Serializable {
-        @NotNull
-        @Column(name = "user_src_id")
-        private Long userSrcId;
+    @NotNull
+    @Column(name = "user_trg_id")
+    private Long userTrgId;
 
-        @NotNull
-        @Column(name = "user_trg_id")
-        private Long userTrgId;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_src_id", insertable = false, updatable = false)
+    private User userSrc;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_trg_id", insertable = false, updatable = false)
+    private User userTrg;
+    
 }
