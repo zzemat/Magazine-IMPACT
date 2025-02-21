@@ -6,10 +6,10 @@ import lombok.AllArgsConstructor;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.CreationTimestamp;
 
 @Data
 @NoArgsConstructor
@@ -28,9 +28,10 @@ public class Question {
     private Profile profile;
 
     @NotNull
-    @Size(min = 1, max = 255)
-    @Column(name = "title", nullable = false)
-    private String title;
+    @Column(name = "content", nullable = false, columnDefinition = "TEXT")
+    private String content;
+
+    
 
     /*
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -42,5 +43,7 @@ public class Question {
     private List<Answer> answers;
 
     @Column(name = "published_at")
+    @NotNull
+    @CreationTimestamp
     private LocalDateTime publishedAt;
 }
