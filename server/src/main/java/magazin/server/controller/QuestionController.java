@@ -16,7 +16,7 @@ public class QuestionController {
     @Autowired
     private QuestionService questionService;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Question> getAllQuestions() {
         return questionService.getAllQuestions();
     }
@@ -30,9 +30,10 @@ public class QuestionController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping
-    public Question createQuestion(@Valid @RequestBody Question question) {
-        return questionService.createQuestion(question);
+    @PostMapping("/create")
+    public ResponseEntity<Question> createQuestion(@Valid @RequestBody Question question) {
+        Question createdQuestion = questionService.createQuestion(question);
+        return ResponseEntity.ok(createdQuestion);
     }
 
     @PutMapping("/{id}")

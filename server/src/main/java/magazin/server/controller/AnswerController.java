@@ -17,7 +17,7 @@ public class AnswerController {
     @Autowired
     private AnswerService answerService;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Answer> getAllAnswers() {
         return answerService.getAllAnswers();
     }
@@ -32,13 +32,14 @@ public class AnswerController {
         }
     }
 
-    @PostMapping
-    public Answer createAnswer(@Valid @RequestBody Answer answer) {
-        return answerService.createAnswer(answer);
+    @PostMapping("/create")
+    public ResponseEntity<Answer> createAnswer(@Valid @RequestBody Answer answer) {
+        Answer createdAnswer = answerService.createAnswer(answer);
+        return ResponseEntity.ok(createdAnswer);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Answer> updateAnswer(@PathVariable Long id,@Valid @RequestBody Answer answerDetails) {
+    public ResponseEntity<Answer> updateAnswer(@PathVariable Long id, @Valid @RequestBody Answer answerDetails) {
         Answer updatedAnswer = answerService.updateAnswer(id, answerDetails);
         if (updatedAnswer != null) {
             return ResponseEntity.ok(updatedAnswer);
