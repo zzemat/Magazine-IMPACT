@@ -22,6 +22,7 @@ public class User {
 
     @Email
     @NotBlank
+    @Column(unique = true)
     private String email;
 
     @NotBlank
@@ -29,7 +30,6 @@ public class User {
     private String password;
 
     private String username;
-
 
     private boolean enabled = true;
 

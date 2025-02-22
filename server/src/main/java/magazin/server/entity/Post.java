@@ -60,10 +60,10 @@ public class Post {
 
     @NotNull
     @Column(name = "published", nullable = false)
-    private Boolean published;
+    private Boolean published = false;
 
     @Column(name = "published_at")
     @CreationTimestamp
-    private LocalDateTime publishedAt;
+    private LocalDateTime createdAt;
 
 }
