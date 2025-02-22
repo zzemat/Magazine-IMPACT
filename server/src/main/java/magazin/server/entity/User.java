@@ -22,6 +22,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "profile_id")
+    @JsonIgnore
+    Private Profile profile;
+
     @Email
     @NotBlank
     @Column(unique = true)
