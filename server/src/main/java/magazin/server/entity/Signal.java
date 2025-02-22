@@ -38,5 +38,5 @@ public class Signal {
     @NotNull
     @Column(name = "pushed_at")
     @CreationTimestamp
-    private LocalDate pushedAt;
+    private LocalDate createdAt;
 }

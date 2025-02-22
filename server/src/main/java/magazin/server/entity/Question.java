@@ -31,8 +31,6 @@ public class Question {
     @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    
-
     /*
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Reaction> reactions;
@@ -45,5 +43,5 @@ public class Question {
     @Column(name = "published_at")
     @NotNull
     @CreationTimestamp
-    private LocalDateTime publishedAt;
+    private LocalDateTime createdAt;
 }

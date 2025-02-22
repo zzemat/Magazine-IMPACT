@@ -40,7 +40,5 @@ public class Answer {
     @NotNull
     @Column(name = "published_at", nullable = false, updatable = false)
     @CreationTimestamp
-    private LocalDateTime publishedAt;
-
-
+    private LocalDateTime createdAt;
 }

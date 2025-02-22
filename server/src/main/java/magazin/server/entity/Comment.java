@@ -43,5 +43,5 @@ public class Comment {
     @NotNull
     @Column(name = "pushed_at", nullable = false)
     @CreationTimestamp
-    private LocalDateTime pushedAt;
+    private LocalDateTime createdAt;
 }
