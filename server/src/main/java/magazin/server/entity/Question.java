@@ -41,7 +41,6 @@ public class Question {
     private List<Answer> answers;
 
     @Column(name = "published_at")
-    @NotNull
     @CreationTimestamp
     private LocalDateTime createdAt;
 }

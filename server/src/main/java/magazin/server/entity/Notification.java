@@ -39,7 +39,6 @@ public class Notification {
     @Column(name = "is_read", nullable = false)
     private Boolean isRead;
 
-    @NotNull
     @PastOrPresent
     @Column(name = "created_at", nullable = false)
     @CreationTimestamp

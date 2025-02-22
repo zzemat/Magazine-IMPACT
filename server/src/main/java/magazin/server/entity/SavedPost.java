@@ -30,7 +30,6 @@ public class SavedPost {
     @JsonIgnore
     private Post post;
 
-    @NotNull
     @Column(name = "saved_at", nullable = false)
     @CreationTimestamp
     private LocalDateTime savedAt;

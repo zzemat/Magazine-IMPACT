@@ -40,7 +40,6 @@ public class Comment {
     private List<Reaction> reactions;
      */
 
-    @NotNull
     @Column(name = "pushed_at", nullable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;

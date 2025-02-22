@@ -37,7 +37,6 @@ public class Answer {
     @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @NotNull
     @Column(name = "published_at", nullable = false, updatable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
