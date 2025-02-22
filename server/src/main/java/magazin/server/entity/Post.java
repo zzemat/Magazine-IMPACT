@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -43,15 +44,15 @@ public class Post {
 
     @ElementCollection(fetch = FetchType.LAZY)
     @Column(name = "tags")
-    private List<String> tags;
+    private List<String> tags = new ArrayList<>();;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<>();;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<Reaction> reactions;
+    private List<Reaction> reactions = new ArrayList<>();
 
     @Transient
     public int getReactionCount() {
