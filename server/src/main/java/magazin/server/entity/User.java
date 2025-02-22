@@ -1,5 +1,6 @@
 package magazin.server.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import jakarta.persistence.*;
@@ -15,7 +16,6 @@ import java.util.Set;
 @Table(name = "users")
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class User {
     
     @Id
@@ -26,7 +26,7 @@ public class User {
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "profile_id")
     @JsonIgnore
-    Private Profile profile;
+    private Profile profile;
 
     @Email
     @NotBlank

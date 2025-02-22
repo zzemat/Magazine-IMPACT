@@ -4,7 +4,11 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import magazin.server.entity.Profile;
+import magazin.server.entity.User;
+import magazin.server.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -26,9 +30,11 @@ public class JwtUtils {
     private int jwtRefreshExpirationMs;
 
     private final PasswordEncoder passwordEncoder;
+    private final UserService userService;
 
-    public JwtUtils(PasswordEncoder passwordEncoder) {
+    public JwtUtils(PasswordEncoder passwordEncoder, UserService userService) {
         this.passwordEncoder = passwordEncoder;
+        this.userService = userService;
     }
 
     public String generateAccessToken(Authentication authentication) {
@@ -93,6 +99,18 @@ public class JwtUtils {
     }
     public Claims getClaimsFromToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
+    }
+
+    public Profile getProfile(String authorizationHeader) {
+        if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
+            return null;
+        }
+
+        String token = authorizationHeader.substring(7);
+        Long userId = this.getUserIdFromToken(token);
+        User userTemp = userService.getUserById(userId);
+
+        return userTemp.getProfile();
     }
 
 }

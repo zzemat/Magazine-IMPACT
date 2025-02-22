@@ -62,9 +62,9 @@ public class CommentController {
         }
 
         String token = authorizationHeader.substring(7);
-
         Long userId = jwtUtils.getUserIdFromToken(token);
         User userTemp = userService.getUserById(userId);
+
         Long userCommentId = commentService.getCommentById(id).getProfile().getUser().getId();
         if(userTemp.getId()==userCommentId) {
             commentService.deleteComment(id);

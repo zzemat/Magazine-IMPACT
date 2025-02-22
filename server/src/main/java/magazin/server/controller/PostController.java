@@ -1,7 +1,10 @@
 package magazin.server.controller;
 
+import magazin.server.DTO.PostDTO;
 import magazin.server.entity.Post;
+import magazin.server.entity.Profile;
 import magazin.server.service.PostService;
+import magazin.server.service.serviceImpl.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +18,8 @@ public class PostController {
 
     @Autowired
     private PostService postService;
+    @Autowired
+    private JwtUtils jwtUtils;
 
     @GetMapping("/all")
     public ResponseEntity<List<Post>> getAllPosts() {
@@ -33,7 +38,11 @@ public class PostController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Post> createPost(@Valid @RequestBody Post post) {
+    public ResponseEntity<Post> createPost(@Valid @RequestBody PostDTO postDTO, @RequestHeader("Authorization") String authorizationHeader) {
+        // TODO: This isn't working for the moment but it can be better
+        Post post = new Post(postDTO);
+        Profile userProfile = jwtUtils.getProfile(authorizationHeader);
+        post.setProfile(userProfile);
         Post createdPost = postService.createPost(post);
         return ResponseEntity.ok(createdPost);
     }

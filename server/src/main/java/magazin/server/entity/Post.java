@@ -11,6 +11,8 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import magazin.server.DTO.PostDTO;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
@@ -67,4 +69,10 @@ public class Post {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
+
+    public Post(PostDTO postDTO) {
+        setTitle(postDTO.getTitle());
+        setContent(postDTO.getContent());
+        setTags(postDTO.getTags());
+    }
 }
