@@ -49,7 +49,7 @@ export default function Login() {
             </p>
           </div>
     </div>
-    <div className='mt-1'>
+    <div className='mt-1'> 
       <Footer />
     </div>
       </>

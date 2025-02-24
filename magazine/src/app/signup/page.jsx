@@ -100,7 +100,7 @@ export default function Signup() {
                         Vous avez déjà un compte? <Link href="/login" className="font-bold hover:underline">Se connecter</Link>
                     </p>
                 </div>
-            </div>
+            </div> 
             <div className='mt-3'>
                 <Footer />
             </div>
