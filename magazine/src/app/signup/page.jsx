@@ -6,6 +6,7 @@ import Logo from '../assets/logo.png'
 import Google from '../assets/google.png'
 import Link from 'next/link';
 import { useState } from 'react';
+import { FaCheck } from 'react-icons/fa'; // Import the check icon
 
 export default function Signup() {
     const router = useRouter();
@@ -48,7 +49,7 @@ export default function Signup() {
 
     return (
         <>
-            <div className="flex flex-col items-center min-h-[90vh] bg-white z-50">
+            <div className="flex flex-col items-center min-h-[90vh] bg-white z-500">
                 <div className="flex justify-center py-2">
                     <Image src={Logo} alt="Logo" width={200} height={50} />
                 </div>
@@ -61,34 +62,47 @@ export default function Signup() {
                     </div>
 
                     <p className="text-center my-4 text-gray-500">ou</p>
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={handleEmailChange}
-                        className="w-full p-2 mb-3 border rounded-lg focus:outline-none"
-                    />
-                    <input
-                        type="text"
-                        placeholder="Username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                        className="w-full p-2 mb-3 border rounded-lg focus:outline-none"
-                    />
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="w-full p-2 mb-3 border rounded-lg focus:outline-none"
-                    />
-                    <input
-                        type="password"
-                        placeholder="Confirm Password"
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="w-full p-2 mb-3 border rounded-lg focus:outline-none"
-                    />
+                    <div className="flex flex-wrap -mx-2">
+                        <div className="w-full md:w-1/2 px-2">
+                            <input
+                                type="email"
+                                placeholder="Email"
+                                value={email}
+                                onChange={handleEmailChange}
+                                className="w-full p-2 mb-3 border rounded-lg focus:outline-none"
+                            />
+                        </div>
+                        <div className="w-full md:w-1/2 px-2">
+                            <input
+                                type="text"
+                                placeholder="Username"
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                className="w-full p-2 mb-3 border rounded-lg focus:outline-none"
+                            />
+                        </div>
+                        <div className="w-full md:w-1/2 px-2">
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="w-full p-2 mb-3 border rounded-lg focus:outline-none"
+                            />
+                        </div>
+                        <div className="w-full md:w-1/2 px-2 relative">
+                            <input
+                                type="password"
+                                placeholder="Confirm Password"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                                className="w-full p-2 mb-3 border rounded-lg focus:outline-none"
+                            />
+                            {password && confirmPassword && password === confirmPassword && (
+                                <FaCheck className="absolute right-3 top-3 text-green-500" />
+                            )}
+                        </div>
+                    </div>
                     {error && <p className="text-red-500 text-center mb-3">{error}</p>}
                     <button
                         onClick={handleSignup}
@@ -101,7 +115,7 @@ export default function Signup() {
                     </p>
                 </div>
             </div> 
-            <div className='mt-3'>
+            <div className='mt-1'>
                 <Footer />
             </div>
         </>
