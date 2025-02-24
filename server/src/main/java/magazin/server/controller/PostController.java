@@ -1,6 +1,6 @@
 package magazin.server.controller;
 
-import magazin.server.DTO.PostDTO;
+import magazin.server.dto.PostDTO;
 import magazin.server.entity.Post;
 import magazin.server.entity.Profile;
 import magazin.server.service.PostService;

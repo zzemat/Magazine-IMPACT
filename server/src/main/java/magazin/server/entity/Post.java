@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import magazin.server.DTO.PostDTO;
+import magazin.server.dto.PostDTO;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
