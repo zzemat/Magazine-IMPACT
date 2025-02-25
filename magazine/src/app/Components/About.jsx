@@ -7,7 +7,7 @@ import MagLogo from '../assets/magLogo2.png'
 
 const About = () => {
   return (
-    <div className='mt-16'>
+    <div className='mt-[550px]'>
 
 <div className='flex flex-col justify-center items-center'>
   <p className='text-black/40 text-sm sm:text-base'>À propos de nous</p>

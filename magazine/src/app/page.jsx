@@ -13,6 +13,8 @@ export default function Home() {
   const router = useRouter();
   return (
     <>
+      <Header />
+      <Hero />
       <About />
 
     {/*
