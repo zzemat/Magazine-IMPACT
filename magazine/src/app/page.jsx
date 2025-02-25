@@ -3,6 +3,9 @@ import Image from 'next/image';
 import Footer from './Components/Footer';
 import { useRouter } from 'next/navigation';
 import Logo from '../app/assets/logo.png'
+import Header from './Components/Header';
+import Hero from './Components/Hero';
+import About from './Components/About';
 
 
 export default function Home() {
@@ -10,7 +13,9 @@ export default function Home() {
   const router = useRouter();
   return (
     <>
-    
+      <About />
+
+    {/*
     <div className="flex flex-col items-center justify-center min-h-[90vh] bg-white">
       <Image src={Logo} alt="Logo" width={200} height={50} />
       <h1 className="text-2xl font-bold my-4">Bienvenue sur Magazine Impact</h1>
@@ -21,7 +26,9 @@ export default function Home() {
         Se connecter
       </button>
     </div>
-    <Footer />
+    <Footer /> */}
+
+    
     </>
   );
 }
