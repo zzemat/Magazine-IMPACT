@@ -23,26 +23,26 @@ const Hero = () => {
           Magazine Impact est un espace dédié aux étudiants pour s’exprimer librement, partager leurs idées et se connecter avec une communauté engagée.
         </p>
         <button className="mt-3 mb-3 z-10 bg-[#FFFFFF] font-bold py-2 px-10 rounded-full shadow-lg hover:bg-[#FFFFF1] active:scale-95 transition-all border-2 border-transparent">
-          <Link href="/">
+          <Link href="#services">
             <span>More</span>
           </Link>
         </button>
       </BackgroundLines>
 
-      <div className="flex flex-col md:flex-row justify-between items-center absolute z-10 md:top-[80vh]  top-[50vh] w-full px-10">
+      <div className="flex  flex-col md:flex-row justify-between items-center absolute z-10 md:top-[85vh]  top-[50vh] w-[80%] px-4 md:px-10">
 
-        <div className="flex flex-col items-center mb-16 md:mb-0 ">
-          <Image src={Hero5} alt='img' className="mb-8" />
-          <Image src={Hero3} alt='img' className='mb-8' />
+        <div className="flex flex-col items-center md:mr-20 mb-16 md:mb-0 ">
+          <Image src={Hero5} alt='img' className="mb-3 hover:scale-110 transition-transform duration-500 cursor-pointer" />
+          <Image src={Hero3} alt='img' className='md:mb-8 hover:scale-110 transition-transform duration-500 cursor-pointer' />
         </div>
 
-        <div className="flex justify-center items-center mb-16 md:mb-0">
-          <Image src={Hero4} alt='img' />
+        <div className="flex justify-center items-center md:mr-20 mb-16 md:mb-0">
+          <Image src={Hero4} height={650}  alt='img' className='hover:scale-110 transition-transform duration-500 cursor-pointer'/>
         </div>
 
         <div className="flex flex-col items-center mb-16 md:mb-0 ">
-          <Image src={Hero2} alt='img' className="mb-8" />
-          <Image src={Hero1} alt='img' />
+          <Image src={Hero2} alt='img' className="mb-3 hover:scale-110 transition-transform duration-500 cursor-pointer" />
+          <Image src={Hero1} alt='img' className='hover:scale-110 transition-transform duration-500 cursor-pointer' />
         </div>
 
       </div>

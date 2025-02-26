@@ -6,6 +6,9 @@ import Logo from '../app/assets/logo.png'
 import Header from './Components/Header';
 import Hero from './Components/Hero';
 import About from './Components/About';
+import Services from './Components/Services';
+import Team from './Components/Team';
+import SecendFooter from './Components/SecendFooter';
 
 
 export default function Home() {
@@ -16,6 +19,11 @@ export default function Home() {
       <Header />
       <Hero />
       <About />
+      <Services />
+      <Team />
+      <SecendFooter />
+     
+      
 
     {/*
     <div className="flex flex-col items-center justify-center min-h-[90vh] bg-white">

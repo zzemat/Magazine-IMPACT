@@ -15,9 +15,9 @@ const Header = () => {
     ];
 
     return (
-        <nav className="top-0 left-0 right-0 z-50">
-            <div className="flex items-center justify-between h-16 px-10 pt-3">
-                <Image className='w-36 cursor-pointer' src={Logo} alt='logo' width={200} height={50} />
+        <nav className="top-0 left-0 right-0 z-50" id='home'>
+            <div className="flex items-center justify-between h-16 px-5 md:px-10 pt-3">
+                <Image className='w-40 cursor-pointer' src={Logo} alt='logo' width={200} height={50} />
                 <div className="hidden md:flex">
                     <div className="ml-10 mr-10 flex items-center space-x-5">
                         {menuItems.map((item) => (
@@ -64,10 +64,10 @@ const Header = () => {
                     ))}
                 </div>
                 <div className="flex justify-center py-4">
-                    <button
+                    <button 
                         className="bg-[#FDAD12] text-white font-bold py-2 px-10 rounded-full shadow-lg hover:bg-[#FDAD00] active:scale-95 transition-all border-2 border-transparent"
                     >
-                        <Link href="/">
+                        <Link href="/login">
                             <span>Log In</span>
                         </Link>
                     </button>
