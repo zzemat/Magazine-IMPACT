@@ -5,7 +5,7 @@ import { FaLinkedin, FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 export default function Footer() {
   return (
     <>
-      <div className="w-full h-6 rotate-180 -mb-20 z-0">
+      <div className="w-full h-6 rotate-180 -mb-20 z-0" >
         <svg viewBox="0 0 1440 100" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M0 40 C100 80, 200 20, 300 50 C400 90, 500 10, 600 40 C700 70, 800 30, 900 50 C1000 70, 1100 20, 1200 40 C1300 60, 1400 20, 1440 50 L1440 100 L0 100 Z"
