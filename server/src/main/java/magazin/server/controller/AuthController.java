@@ -55,6 +55,24 @@ public class AuthController {
         }
     }
 
+    @PostMapping("/signup")
+    public Map<String, String> registerUser(@RequestBody Map<String, String> request) {
+        if (userRepository.existsByEmail(request.get("email"))) {
+            throw new RuntimeException("Email is already in use");
+        }
+
+        User user = new User();
+        user.setEmail(request.get("email"));
+        user.setPassword(passwordEncoder.encode(request.get("password")));
+        user.setUsername(request.get("username"));
+        userRepository.save(user);
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "User registered successfully");
+        return response;
+    }
+
+
     @PostMapping("/refresh")
     public Map<String, String> refreshToken(@RequestHeader("Authorization") String refreshTokenHeader) {
         String refreshToken = refreshTokenHeader.replace("Bearer ", "");
