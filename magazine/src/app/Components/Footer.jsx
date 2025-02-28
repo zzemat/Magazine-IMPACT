@@ -15,24 +15,24 @@ export default function Footer() {
       </div>
 
       <footer className="bg-yellow-500 text-white pt-10 pb-6">
-      <div className="container p-4 grid grid-cols-3 items-center px-12">
-      <div className="text-left">
-        <Link href="/about" className="hover:underline">About</Link>
-        <Link href="/contact" className="hover:underline ml-4">Contact</Link>
-        <Link href="/privacy-policy" className="hover:underline ml-4">Politique et confidentialité</Link>
-      </div>
+        <div className="container p-4 grid grid-cols-3 items-center px-12">
+          <div className="text-left">
+            <Link href="/about" className="hover:underline">About</Link>
+            <Link href="/contact" className="hover:underline ml-4">Contact</Link>
+            <Link href="/privacy-policy" className="hover:underline ml-4">Politique et confidentialité</Link>
+          </div>
 
-      <div className="text-center">
-        <p>© 2025 Magazine Impact</p>
-      </div>
+          <div className="text-center">
+            <p>© 2025 Magazine Impact</p>
+          </div>
 
-      <div className="text-right flex justify-end space-x-4">
-        <Link href="#"><FaLinkedin className="text-white text-3xl hover:text-gray-300" /></Link>
-        <Link href="#"><FaFacebook className="text-white text-3xl hover:text-gray-300" /></Link>
-        <Link href="#"><FaInstagram className="text-white text-3xl hover:text-gray-300" /></Link>
-        <Link href="#"><FaYoutube className="text-white text-3xl hover:text-gray-300" /></Link>
-      </div>
-    </div>
+          <div className="text-right flex justify-end space-x-4">
+            <Link href="#"><FaLinkedin className="text-white text-3xl hover:text-gray-300" /></Link>
+            <Link href="#"><FaFacebook className="text-white text-3xl hover:text-gray-300" /></Link>
+            <Link href="#"><FaInstagram className="text-white text-3xl hover:text-gray-300" /></Link>
+            <Link href="#"><FaYoutube className="text-white text-3xl hover:text-gray-300" /></Link>
+          </div>
+        </div>
       </footer>
     </>
   );

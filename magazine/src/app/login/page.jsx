@@ -45,11 +45,11 @@ export default function Login() {
               Se connecter
             </button>
             <p className="text-center mt-4 text-gray-700">
-              vous n’avez pas un compte? <Link href="/login" className="font-bold hover:underline">s’inscrire</Link>
+              vous n’avez pas un compte? <Link href="/signup" className="font-bold hover:underline">s’inscrire</Link>
             </p>
           </div>
     </div>
-    <div className='mt-1'>
+    <div className='mt-1'> 
       <Footer />
     </div>
       </>
