@@ -1,7 +1,9 @@
 package magazin.server.controller;
 
 import magazin.server.entity.User;
+import magazin.server.entity.Role;
 import magazin.server.repository.UserRepository;
+import magazin.server.repository.RoleRepository;
 import magazin.server.service.serviceImpl.JwtUtils;
 import magazin.server.service.serviceImpl.UserDetailsImpl;
 import magazin.server.service.UserService;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -29,7 +32,10 @@ public class AuthController {
     @Autowired
     private UserRepository userRepository;
 
-    @Autpwored
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
     private UserService userService;
 
     @Autowired
@@ -69,7 +75,8 @@ public class AuthController {
         user.setEmail(request.get("email"));
         user.setPassword(passwordEncoder.encode(request.get("password")));
         user.setUsername(request.get("username"));
-        user.setRole("ROLE_USER");
+        Role userRole = roleRepository.findByName("ROLE_USER").orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        user.getRoles().add(userRole);
         User createdUser = userService.createUser(user);
         userService.createProfileForUser(createdUser.getId());
 
