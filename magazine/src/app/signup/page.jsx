@@ -52,7 +52,7 @@ export default function Signup() {
         };
 
         try {
-            const response = await axios.post('http://localhost:3000/api/auth/signup', requestBody);
+            const response = await axios.post('http://localhost:8080/api/auth/signup', requestBody);
             console.log('Signup successful', response.data);
             router.push('/login');
         } catch (error) {

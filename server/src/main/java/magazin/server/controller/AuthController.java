@@ -4,6 +4,7 @@ import magazin.server.entity.User;
 import magazin.server.repository.UserRepository;
 import magazin.server.service.serviceImpl.JwtUtils;
 import magazin.server.service.serviceImpl.UserDetailsImpl;
+import magazin.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -27,6 +28,9 @@ public class AuthController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autpwored
+    private UserService userService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -65,7 +69,10 @@ public class AuthController {
         user.setEmail(request.get("email"));
         user.setPassword(passwordEncoder.encode(request.get("password")));
         user.setUsername(request.get("username"));
-        userRepository.save(user);
+        user.setRole("ROLE_USER");
+        User createdUser = userService.createUser(user);
+        userService.createProfileForUser(createdUser.getId());
+
 
         Map<String, String> response = new HashMap<>();
         response.put("message", "User registered successfully");
