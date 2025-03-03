@@ -1,4 +1,4 @@
-package magazin.server.DTO;
+package magazin.server.dto;
 
 
 import jakarta.validation.constraints.NotBlank;
@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostDTO {
+
     @Size(max = 255)
     @NotNull
     @NotBlank
@@ -22,5 +23,5 @@ public class PostDTO {
     @NotBlank
     private String content;
 
-    private List<String> tags = new ArrayList<>();;
+    private List<String> tags = new ArrayList<>();
 }

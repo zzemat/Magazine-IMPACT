@@ -40,6 +40,7 @@ public class User {
 
     private String username;
 
+    @Column(nullable = false)
     private boolean enabled = true;
 
     @ManyToMany(fetch = FetchType.EAGER)

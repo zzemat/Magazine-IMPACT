@@ -6,7 +6,8 @@ import Logo from '../assets/logo.png'
 import Google from '../assets/google.png'
 import Link from 'next/link';
 import { useState } from 'react';
-import { FaCheck } from 'react-icons/fa'; // Import the check icon
+import { FaCheck } from 'react-icons/fa'; 
+import axios from 'axios';
 
 export default function Signup() {
     const router = useRouter();
@@ -26,7 +27,7 @@ export default function Signup() {
         return re.test(String(email).toLowerCase());
     };
 
-    const handleSignup = () => {
+    const handleSignup = async () => {
         if (!email || !username || !password || !confirmPassword) {
             setError('All fields are required');
             return;
@@ -44,7 +45,20 @@ export default function Signup() {
             return;
         }
         setError('');
-        router.push('/welcome');
+        const requestBody = {
+            email: email,
+            username: username,
+            password: password
+        };
+
+        try {
+            const response = await axios.post('http://localhost:8080/api/auth/signup', requestBody);
+            console.log('Signup successful', response.data);
+            router.push('/login');
+        } catch (error) {
+            console.error('There was an error signing up!', error);
+            setError('Signup failed. Please try again.');
+        }
     };
 
     return (

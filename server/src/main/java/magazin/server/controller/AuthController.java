@@ -1,9 +1,12 @@
 package magazin.server.controller;
 
 import magazin.server.entity.User;
+import magazin.server.entity.Role;
 import magazin.server.repository.UserRepository;
+import magazin.server.repository.RoleRepository;
 import magazin.server.service.serviceImpl.JwtUtils;
 import magazin.server.service.serviceImpl.UserDetailsImpl;
+import magazin.server.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -27,6 +31,12 @@ public class AuthController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -54,6 +64,28 @@ public class AuthController {
             throw new RuntimeException("Email or password invalid");
         }
     }
+
+    @PostMapping("/signup")
+    public Map<String, String> registerUser(@RequestBody Map<String, String> request) {
+        if (userRepository.existsByEmail(request.get("email"))) {
+            throw new RuntimeException("Email is already in use");
+        }
+
+        User user = new User();
+        user.setEmail(request.get("email"));
+        user.setPassword(passwordEncoder.encode(request.get("password")));
+        user.setUsername(request.get("username"));
+        Role userRole = roleRepository.findByName("ROLE_USER").orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+        user.getRoles().add(userRole);
+        User createdUser = userService.createUser(user);
+        userService.createProfileForUser(createdUser.getId());
+
+
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "User registered successfully");
+        return response;
+    }
+
 
     @PostMapping("/refresh")
     public Map<String, String> refreshToken(@RequestHeader("Authorization") String refreshTokenHeader) {
