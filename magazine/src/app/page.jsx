@@ -9,6 +9,8 @@ import About from './Components/About';
 import Services from './Components/Services';
 import Team from './Components/Team';
 import SecendFooter from './Components/SecendFooter';
+import Notification from './Components/Notification';
+import Questions from './Components/Questions';
 
 
 export default function Home() {
@@ -20,11 +22,9 @@ export default function Home() {
       <Hero />
       <About />
       <Services />
+      <Questions />
       <Team />
       <SecendFooter />
-     
-      
-
     {/*
     <div className="flex flex-col items-center justify-center min-h-[90vh] bg-white">
       <Image src={Logo} alt="Logo" width={200} height={50} />
