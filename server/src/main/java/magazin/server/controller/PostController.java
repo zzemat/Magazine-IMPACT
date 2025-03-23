@@ -3,10 +3,12 @@ package magazin.server.controller;
 import magazin.server.dto.PostDTO;
 import magazin.server.entity.Post;
 import magazin.server.entity.Profile;
+import magazin.server.repository.PostRepository;
 import magazin.server.service.PostService;
 import magazin.server.service.serviceImpl.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.validation.Valid;
@@ -20,6 +22,8 @@ public class PostController {
     private PostService postService;
     @Autowired
     private JwtUtils jwtUtils;
+    @Autowired
+    private PostRepository postRepository;
 
     @GetMapping("/all")
     public ResponseEntity<List<Post>> getAllPosts() {
@@ -48,13 +52,28 @@ public class PostController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Post> updatePost(@PathVariable Long id, @Valid @RequestBody Post postDetails) {
-        Post updatedPost = postService.updatePost(id, postDetails);
-        if (updatedPost != null) {
-            return ResponseEntity.ok(updatedPost);
-        } else {
+    public ResponseEntity<Post> updatePost(@PathVariable Long id, @Valid @RequestBody PostDTO postDTO, @RequestHeader("Authorization") String authorizationHeader) {
+        // getting the user details
+        Profile userProfile = jwtUtils.getProfile(authorizationHeader);
+        if (userProfile == null) {
+            throw new BadCredentialsException("You're unauthorized");
+        }
+        // getting the post details
+        Post post = postService.getPostById(id);
+        if (post == null) {
             return ResponseEntity.notFound().build();
         }
+
+        // checking if the user owns the post
+        if (!post.getProfile().getId().equals(userProfile.getId())) {
+            throw new BadCredentialsException("You're unauthorized perform do this action");
+        }
+
+        post.setTitle(postDTO.getTitle());
+        post.setContent(postDTO.getContent());
+        post.setTags(postDTO.getTags());
+        postRepository.save(post);
+        return ResponseEntity.ok(post);
     }
 
     @DeleteMapping("/{id}")
