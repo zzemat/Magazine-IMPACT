@@ -10,6 +10,7 @@ import magazin.server.repository.SavedPostRepository;
 import magazin.server.service.PostService;
 import magazin.server.service.serviceImpl.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
@@ -47,6 +48,12 @@ public class PostController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/page/{page}")
+    public ResponseEntity<List<Post>> getPage(@PathVariable int page) {
+        List<Post> posts = postRepository.getPage((page - 1) * 20);
+        return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
     @PostMapping("/create")
