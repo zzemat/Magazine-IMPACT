@@ -10,6 +10,8 @@ import magazin.server.service.ReactionService;
 import magazin.server.service.serviceImpl.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.*;
@@ -51,14 +53,8 @@ public class ReactionController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<Reaction> createReaction(@Valid @RequestBody Reaction reaction) {
-        Reaction createdReaction = reactionService.createReaction(reaction);
-        return ResponseEntity.ok(createdReaction);
-    }
-
     @PostMapping("/")
-    public ResponseEntity<Reaction> react(@RequestBody @Valid ReactionDTO reactionDTO, @RequestHeader("Authorization") String authorizationHeader) {
+    public ResponseEntity<Reaction> createReaction(@RequestBody @Valid ReactionDTO reactionDTO, @RequestHeader("Authorization") String authorizationHeader) {
         // getting the user details
         Profile userProfile = jwtUtils.getProfile(authorizationHeader);
         if (userProfile == null) {
@@ -87,17 +83,51 @@ public class ReactionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Reaction> updateReaction(@PathVariable Long id, @Valid @RequestBody Reaction reaction) {
-        Reaction updatedReaction = reactionService.updateReaction(id, reaction);
-        if (updatedReaction != null) {
-            return ResponseEntity.ok(updatedReaction);
+    public ResponseEntity<Reaction> updateReaction(@PathVariable Long id, @RequestBody @Valid ReactionDTO reactionDTO, @RequestHeader("Authorization") String authorizationHeader) {
+        // getting the user details
+        Profile userProfile = jwtUtils.getProfile(authorizationHeader);
+        if (userProfile == null) {
+            throw new BadCredentialsException("You're unauthorized");
         }
-        return ResponseEntity.notFound().build();
+
+        // getting the reaction
+        Optional<Reaction> reaction = reactionRepository.findById(id);
+        if (reaction.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // checking if the user owns the reaction
+        Reaction newReaction = reaction.get();
+        if (newReaction.getProfile().getId().equals(userProfile.getId())) {
+            return ResponseEntity.status(403).build();
+        }
+
+        newReaction.setReactionType(reactionDTO.getReactionType());
+        reactionRepository.save(newReaction);
+        return ResponseEntity.ok(newReaction);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteReaction(@PathVariable Long id) {
-        reactionService.deleteReaction(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deleteReaction(@PathVariable Long id, @RequestHeader("Authorization") String authorizationHeader) {
+        // getting the user details
+        Profile userProfile = jwtUtils.getProfile(authorizationHeader);
+        if (userProfile == null) {
+            throw new BadCredentialsException("You're unauthorized");
+        }
+
+        // getting the reaction
+        Optional<Reaction> reaction = reactionRepository.findById(id);
+        if (reaction.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // checking if the user owns the reaction
+        Reaction newReaction = reaction.get();
+        if (newReaction.getProfile().getId().equals(userProfile.getId())) {
+            return ResponseEntity.status(403).build();
+        }
+
+        reactionRepository.delete(newReaction);
+        return ResponseEntity.ok().build();
     }
 }
