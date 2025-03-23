@@ -77,8 +77,26 @@ public class PostController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePost(@PathVariable Long id) {
-        postService.deletePost(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deletePost(@PathVariable Long id, @RequestHeader("Authorization") String authorizationHeader) {
+        // getting the user details
+        Profile userProfile = jwtUtils.getProfile(authorizationHeader);
+        if (userProfile == null) {
+            throw new BadCredentialsException("You're unauthorized");
+        }
+//        System.out.println(userProfile);
+        // getting the post details
+        Post post = postService.getPostById(id);
+        if (post == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        // checking if the user owns the post
+        // TODO : this needs more testing
+        if (!post.getProfile().getId().equals(userProfile.getId()) && !jwtUtils.isAdmin(userProfile)) {
+            throw new BadCredentialsException("You're unauthorized perform do this action");
+        }
+
+        postRepository.delete(post);
+        return ResponseEntity.ok().build();
     }
 }
