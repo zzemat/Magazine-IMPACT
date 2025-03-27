@@ -7,8 +7,13 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
+
+import magazin.server.enums.ReactionType;
 import org.hibernate.annotations.CreationTimestamp;
+
 
 @Entity
 @Data
@@ -31,6 +36,9 @@ public class Reaction {
     @JoinColumn(name = "post_id", nullable = false)
     @JsonIgnore
     private Post post;
+
+    @NotNull
+    private ReactionType reactionType;
 
     @Column(name = "created_at", nullable = false)
     @CreationTimestamp

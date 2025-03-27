@@ -113,4 +113,8 @@ public class JwtUtils {
         return userTemp.getProfile();
     }
 
+    public boolean isAdmin(Profile profile) {
+        return profile.getUser().getRoles().stream().anyMatch(r -> r.getName().equals("admin"));
+    }
+
 }
