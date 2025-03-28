@@ -1,10 +1,8 @@
 package magazin.server.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -12,13 +10,13 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
-@Table(name = "answers")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Table(name = "answers")
+
 public class Answer {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,8 +37,7 @@ public class Answer {
     @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    @NotNull
     @Column(name = "published_at", nullable = false, updatable = false)
     @CreationTimestamp
-    private LocalDateTime publishedAt;
+    private LocalDateTime createdAt;
 }

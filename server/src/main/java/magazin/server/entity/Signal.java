@@ -35,8 +35,7 @@ public class Signal {
     @JoinColumn(name = "profile_id", nullable = false)
     private Profile profile;
 
-    @NotNull
     @Column(name = "pushed_at")
     @CreationTimestamp
-    private LocalDate pushedAt;
+    private LocalDate createdAt;
 }

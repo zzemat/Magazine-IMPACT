@@ -1,8 +1,7 @@
 package magazin.server.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
@@ -31,7 +30,6 @@ public class SavedPost {
     @JsonIgnore
     private Post post;
 
-    @NotNull
     @Column(name = "saved_at", nullable = false)
     @CreationTimestamp
     private LocalDateTime savedAt;
