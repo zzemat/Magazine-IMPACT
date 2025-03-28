@@ -24,7 +24,7 @@ const Hero = () => {
         </p>
         <button className="mt-3 mb-3 z-10 bg-[#FFFFFF] font-bold py-2 px-10 rounded-full shadow-lg hover:bg-[#FFFFF1] active:scale-95 transition-all border-2 border-transparent">
           <Link href="#services">
-            <span>More</span>
+            <span>Voir Plus</span>
           </Link>
         </button>
       </BackgroundLines>

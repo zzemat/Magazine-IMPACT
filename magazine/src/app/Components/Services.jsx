@@ -10,7 +10,7 @@ const Services = () => {
             <div className='bg-[#FEB92F] md:py-20 py-10 px-10' id='services'>
 
                 <div className='flex flex-col justify-center items-center'>
-                    <p className='text-white/85 text-sm sm:text-base'>À propos de nous</p>
+                    <p className='text-white/85 text-sm sm:text-base'>Nos Services</p>
                     <h1 className='text-white/90 font-bold text-2xl sm:text-4xl text-center'>Handshake infographic mass market crowdfunding iteration.</h1>
                 </div>
 
