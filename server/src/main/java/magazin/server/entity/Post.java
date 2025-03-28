@@ -9,7 +9,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+
+import magazin.server.dto.PostDTO;
 import org.hibernate.annotations.CreationTimestamp;
 
 @Entity
@@ -43,15 +46,15 @@ public class Post {
 
     @ElementCollection(fetch = FetchType.LAZY)
     @Column(name = "tags")
-    private List<String> tags;
+    private List<String> tags = new ArrayList<>();;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<Comment> comments;
+    private List<Comment> comments = new ArrayList<>();;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<Reaction> reactions;
+    private List<Reaction> reactions = new ArrayList<>();
 
     @Transient
     public int getReactionCount() {
@@ -60,10 +63,16 @@ public class Post {
 
     @NotNull
     @Column(name = "published", nullable = false)
-    private Boolean published;
+    private Boolean published = false;
 
     @Column(name = "published_at")
     @CreationTimestamp
-    private LocalDateTime publishedAt;
+    private LocalDateTime createdAt;
 
+
+    public Post(PostDTO postDTO) {
+        setTitle(postDTO.getTitle());
+        setContent(postDTO.getContent());
+        setTags(postDTO.getTags());
+    }
 }

@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.CreationTimestamp;
@@ -31,8 +32,6 @@ public class Question {
     @Column(name = "content", nullable = false, columnDefinition = "TEXT")
     private String content;
 
-    
-
     /*
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Reaction> reactions;
@@ -40,10 +39,9 @@ public class Question {
 
     @JsonIgnore
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Answer> answers;
+    private List<Answer> answers = new ArrayList<>();;
 
     @Column(name = "published_at")
-    @NotNull
     @CreationTimestamp
-    private LocalDateTime publishedAt;
+    private LocalDateTime createdAt;
 }

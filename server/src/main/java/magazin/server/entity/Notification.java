@@ -1,7 +1,7 @@
 package magazin.server.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import lombok.*;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -39,7 +39,6 @@ public class Notification {
     @Column(name = "is_read", nullable = false)
     private Boolean isRead;
 
-    @NotNull
     @PastOrPresent
     @Column(name = "created_at", nullable = false)
     @CreationTimestamp
